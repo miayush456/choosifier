@@ -113,35 +113,27 @@
   .search-box input::placeholder{ color:#5c5c5c; }
 
   /* ---------- SECTION LABEL ---------- */
-  .section-label{
-    max-width:640px;
-    margin:34px auto 14px;
-    padding:0 20px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:14px;
-    color:var(--text-muted);
-    letter-spacing:1px;
-    text-transform:uppercase;
-  }
-  .section-label::before{
-    content:"";
-    width:3px;
-    height:16px;
-    background:var(--red);
-    display:inline-block;
-    border-radius:2px;
-  }
+.section-label{
+  max-width:640px;
+  margin:34px 0 14px 34px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:14px;
+  color:var(--text-muted);
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
 
   /* ---------- DRAMA LIST ---------- */
-  .drama-list{
+ .drama-list{
   max-width:640px;
-  margin:0 auto;
-  padding:0 20px;
+  margin:0 0 0 34px;
+  padding:0;
   display:flex;
   flex-direction:column;
-  gap:14px;
+  gap:24px;
   text-align:left;
 }
 
@@ -161,20 +153,29 @@
   }
 
   .poster{
-    width:64px;
-    height:92px;
-    flex-shrink:0;
-    border-radius:6px;
-    object-fit:cover;
-    background:linear-gradient(160deg, var(--red-dim), var(--teal-dim));
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:'Anton', sans-serif;
-    font-size:22px;
-    color:var(--text-muted);
-    border:1px solid var(--border);
-  }
+  width:64px;
+  height:92px;
+  flex-shrink:0;
+  border-radius:6px;
+  object-fit:cover;
+  background:linear-gradient(160deg, var(--red-dim), var(--teal-dim));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Anton', sans-serif;
+  font-size:22px;
+  color:var(--text-muted);
+  border:1px solid var(--border);
+  overflow:hidden;
+  transition:transform .3s ease;
+  object-fit:cover;
+  object-position:center;
+}
+
+.drama-card:hover img.poster{
+  transform:scale(2.2);
+  transform-origin:center;
+}
 
   .drama-info{ flex:1; min-width:0; text-align:left; }
 
@@ -262,19 +263,18 @@
       </div>
     </a>
 
-    <div class="drama-card">
-      <div class="poster">Q</div>
-      <div class="drama-info">
-        <div class="drama-title">Queen of Tears</div>
-        <div class="tags">
-          <span class="tag genre">Romance</span>
-          <span class="tag status">Completed</span>
-        </div>
-        <div class="drama-desc">Ek business heiress aur uske husband ki shaadi tab test hoti hai jab ek zindagi badalne wali khabar unke rishte ko phir se jodti hai.</div>
-      </div>
+   <a href="webseries/korean/queen of tears.html" class="drama-card" style="text-decoration:none; color:inherit;">
+  <img class="poster" src="webseries/korean/images/queen of tears.jpeg" alt="Queen of Tears poster">
+  <div class="drama-info">
+    <div class="drama-title">Queen of Tears</div>
+    <div class="tags">
+      <span class="tag genre">Romance</span>
+      <span class="tag status">Completed</span>
     </div>
-
+    <div class="drama-desc">Ek business heiress aur uske husband ki shaadi tab test hoti hai jab ek zindagi badalne wali khabar unke rishte ko phir se jodti hai.</div>
   </div>
+</a>
+
 
 </body>
 </html>
