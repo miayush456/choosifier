@@ -136,13 +136,14 @@
 
   /* ---------- DRAMA LIST ---------- */
   .drama-list{
-    max-width:640px;
-    margin:0 auto;
-    padding:0 20px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-  }
+  max-width:640px;
+  margin:0 auto;
+  padding:0 20px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  text-align:left;
+}
 
   .drama-card{
     display:flex;
@@ -175,7 +176,7 @@
     border:1px solid var(--border);
   }
 
-  .drama-info{ flex:1; min-width:0; }
+  .drama-info{ flex:1; min-width:0; text-align:left; }
 
   .drama-title{
     font-size:16.5px;
@@ -248,7 +249,7 @@
   <div class="drama-list">
 
     <a href="webseries/korean/vincenzo.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster">V</div>
+  <img class="poster" src="webseries/korean/images/vincenzo.jpeg" alt="Vincenzo poster">
   <div class="drama-info">
     <div class="drama-title">Vincenzo</div>
     ...
