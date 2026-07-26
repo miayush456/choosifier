@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choosifier — Kya Dekhein Aaj?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --bg-card:#131313;
+    --border:#242424;
+    --red:#e6304a;
+    --red-dim:#3d1017;
+    --teal:#17b8a6;
+    --teal-dim:#0e2b28;
+    --text:#f2f0ec;
+    --text-muted:#8c8c8c;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+
+  /* ---------- HEADER / LOGO ---------- */
+  header{
+    padding:36px 20px 24px;
+    text-align:center;
+    border-bottom:1px solid var(--border);
+  }
+
+  .logo{
+    font-family:'Anton', sans-serif;
+    font-size:clamp(38px, 9vw, 56px);
+    letter-spacing:1px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    line-height:1;
+  }
+  .logo .chooS{ color:var(--red); }
+  .logo .ifier{ color:var(--teal); }
+
+  .dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:var(--red);
+    animation:switchColor 1.6s infinite ease-in-out;
+    box-shadow:0 0 10px var(--red);
+  }
+  @keyframes switchColor{
+    0%, 45%{ background:var(--red); box-shadow:0 0 10px var(--red); }
+    50%, 95%{ background:var(--teal); box-shadow:0 0 10px var(--teal); }
+    100%{ background:var(--red); box-shadow:0 0 10px var(--red); }
+  }
+
+  .tagline{
+    margin-top:8px;
+    color:var(--text-muted);
+    font-size:13px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+  }
+
+  /* ---------- SEARCH ---------- */
+  .search-wrap{
+    max-width:520px;
+    margin:26px auto 0;
+    padding:0 20px;
+  }
+  .search-box{
+    display:flex;
+    align-items:center;
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:12px 16px;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .search-box:focus-within{
+    border-color:var(--teal);
+    box-shadow:0 0 0 3px var(--teal-dim);
+  }
+  .search-box svg{
+    flex-shrink:0;
+    stroke:var(--text-muted);
+    margin-right:10px;
+  }
+  .search-box input{
+    flex:1;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--text);
+    font-size:15px;
+    font-family:'Inter', sans-serif;
+  }
+  .search-box input::placeholder{ color:#5c5c5c; }
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-label{
+    max-width:640px;
+    margin:34px auto 14px;
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+    color:var(--text-muted);
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
+  .section-label::before{
+    content:"";
+    width:3px;
+    height:16px;
+    background:var(--red);
+    display:inline-block;
+    border-radius:2px;
+  }
+
+  /* ---------- DRAMA LIST ---------- */
+  .drama-list{
+    max-width:640px;
+    margin:0 auto;
+    padding:0 20px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .drama-card{
+    display:flex;
+    gap:14px;
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px;
+    align-items:center;
+    transition:border-color .2s, transform .2s;
+  }
+  .drama-card:hover{
+    border-color:var(--teal);
+    transform:translateY(-2px);
+  }
+
+  .poster{
+    width:64px;
+    height:92px;
+    flex-shrink:0;
+    border-radius:6px;
+    object-fit:cover;
+    background:linear-gradient(160deg, var(--red-dim), var(--teal-dim));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Anton', sans-serif;
+    font-size:22px;
+    color:var(--text-muted);
+    border:1px solid var(--border);
+  }
+
+  .drama-info{ flex:1; min-width:0; }
+
+  .drama-title{
+    font-size:16.5px;
+    font-weight:700;
+    margin-bottom:4px;
+  }
+
+  .tags{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .tag{
+    font-size:11px;
+    padding:2px 8px;
+    border-radius:20px;
+    font-weight:600;
+    letter-spacing:.3px;
+  }
+  .tag.genre{
+    background:var(--teal-dim);
+    color:var(--teal);
+  }
+  .tag.status{
+    background:var(--red-dim);
+    color:var(--red);
+  }
+
+  .drama-desc{
+    font-size:12.5px;
+    color:var(--text-muted);
+    line-height:1.4;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:400px){
+    .poster{ width:52px; height:74px; }
+    .drama-title{ font-size:15px; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span class="chooS">CHOOS</span><span class="dot"></span><span class="ifier">IFIER</span>
+    </div>
+    <div class="tagline">Ek Show Chuno, Bina Confuse Hue</div>
+  </header>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" placeholder="Show ya genre search karo...">
+    </div>
+  </div>
+
+  <div class="section-label">K-Drama Picks</div>
+
+  <div class="drama-list">
+
+    <div class="drama-card">
+      <div class="poster">V</div>
+      <div class="drama-info">
+        <div class="drama-title">Vincenzo</div>
+        <div class="tags">
+          <span class="tag genre">Crime</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">Ek Korean-Italian mafia consultant apne dushmano se hisaab barabar karne ke liye Korea aata hai — dark humor aur revenge ka perfect mix.</div>
+      </div>
+    </div>
+
+    <div class="drama-card">
+      <div class="poster">Q</div>
+      <div class="drama-info">
+        <div class="drama-title">Queen of Tears</div>
+        <div class="tags">
+          <span class="tag genre">Romance</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">Ek business heiress aur uske husband ki shaadi tab test hoti hai jab ek zindagi badalne wali khabar unke rishte ko phir se jodti hai.</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
