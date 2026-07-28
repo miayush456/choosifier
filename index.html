@@ -208,32 +208,8 @@
     color: var(--text-muted);
     border: 1px solid var(--border);
     overflow: hidden;
+    
   }
-
-  .poster{
-    width:64px;
-    height:92px;
-    flex-shrink:0;
-    border-radius:6px;
-    object-fit:cover;
-    background:linear-gradient(160deg, var(--red-dim), var(--teal-dim));
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:'Anton', sans-serif;
-    font-size:22px;
-    color:var(--text-muted);
-    border:1px solid var(--border);
-    overflow:hidden;
-    transition:transform .3s ease;
-    object-position:center;
-  }
-
-  .drama-card:hover img.poster{
-    transform:scale(1.1);
-  }
-
-  .drama-info{ flex:1; min-width:0; text-align:left; }
 
   .drama-title{
     font-size:16.5px;
@@ -272,7 +248,33 @@
     -webkit-box-orient:vertical;
     overflow:hidden;
   }
-
+.drama-card:hover .poster-frame{
+  overflow:visible;
+}
+.poster{
+  width:64px;
+  height:92px;
+  flex-shrink:0;
+  border-radius:6px;
+  object-fit:cover;
+  background:linear-gradient(160deg, var(--red-dim), var(--teal-dim));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Anton', sans-serif;
+  font-size:22px;
+  color:var(--text-muted);
+  border:1px solid var(--border);
+  overflow:hidden;
+  transition:transform .3s ease;
+  object-position:center;
+  position:relative;
+  z-index:1;
+}
+.drama-card:hover img.poster{
+  transform:scale(2.5);
+  z-index:10;
+}
   /* ---------- DETAIL PANEL ---------- */
   .detail-panel{
     position:fixed;
@@ -411,7 +413,9 @@
     </div>
 
     <a href="webseries/korean/crash landing on you.html" class="drama-card">
-      <div class="poster-frame"><span>C</span></div>
+      <div class="poster-frame">
+  <img class="poster" src="webseries/korean/images/crash landing on you.jpeg" alt="Crash Landing on You poster">
+</div>
       <div class="drama-info">
         <div class="drama-title">Crash Landing on You</div>
         <div class="tags">
@@ -423,7 +427,9 @@
     </a>
 
     <a href="webseries/korean/all of us are dead.html" class="drama-card">
-      <div class="poster-frame"><span>A</span></div>
+      <div class="poster-frame">
+  <img class="poster" src="webseries/korean/images/all of us are dead.jpeg" alt="All of Us Are Dead poster">
+</div>
       <div class="drama-info">
         <div class="drama-title">All of Us Are Dead</div>
         <div class="tags">
@@ -478,7 +484,9 @@
     </a>
 
     <a href="webseries/korean/true beauty.html" class="drama-card">
-      <div class="poster-frame"><span>T</span></div>
+      <div class="poster-frame">
+  <img class="poster" src="webseries/korean/images/true beauty.jpeg" alt="True Beauty poster">
+</div>
       <div class="drama-info">
         <div class="drama-title">True Beauty</div>
         <div class="tags">
@@ -538,7 +546,9 @@
     </a>
 
     <a href="webseries/korean/my demon.html" class="drama-card">
-      <div class="poster-frame"><span>M</span></div>
+      <div class="poster-frame">
+  <img class="poster" src="webseries/korean/images/my demon.jpeg" alt="My Demon poster">
+</div>
       <div class="drama-info">
         <div class="drama-title">My Demon</div>
         <div class="tags">
@@ -550,7 +560,9 @@
     </a>
 
     <a href="webseries/korean/the glory.html" class="drama-card">
-      <div class="poster-frame"><span>T</span></div>
+      <div class="poster-frame">
+  <img class="poster" src="webseries/korean/images/the glory.jpeg" alt="The Glory poster">
+</div>
       <div class="drama-info">
         <div class="drama-title">The Glory</div>
         <div class="tags">
