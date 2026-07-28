@@ -1,0 +1,327 @@
+:root{
+  --bg:#0a0a0a;
+  --bg-card:#131313;
+  --border:#242424;
+  --red:#e6304a;
+  --red-dim:#3d1017;
+  --teal:#17b8a6;
+  --teal-dim:#0e2b28;
+  --text:#f2f0ec;
+  --text-muted:#8c8c8c;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter', sans-serif;
+  min-height:100vh;
+  padding-bottom:60px;
+}
+
+/* ---------- HEADER / LOGO ---------- */
+header{
+  padding:36px 20px 24px;
+  text-align:left;
+  border-bottom:1px solid var(--border);
+}
+
+.header-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.logo{
+  font-family:'Anton', sans-serif;
+  font-size:clamp(38px, 9vw, 56px);
+  letter-spacing:1px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  line-height:1;
+}
+.logo .CHOOS{ color:var(--red); }
+.logo .ifier{ color:var(--teal); }
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--red);
+  animation:switchColor 1.6s infinite ease-in-out;
+  box-shadow:0 0 10px var(--red);
+}
+@keyframes switchColor{
+  0%, 45%{ background:var(--red); box-shadow:0 0 10px var(--red); }
+  50%, 95%{ background:var(--teal); box-shadow:0 0 10px var(--teal); }
+  100%{ background:var(--red); box-shadow:0 0 10px var(--red); }
+}
+
+.tagline{
+  margin-top:8px;
+  color:var(--text-muted);
+  font-size:13px;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+}
+
+/* ---------- SEARCH ---------- */
+.search-wrap{
+  flex:1;
+  min-width:200px;
+  max-width:320px;
+}
+.search-box{
+  display:flex;
+  align-items:center;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px 16px;
+  transition:border-color .2s, box-shadow .2s;
+}
+.search-box:focus-within{
+  border-color:var(--teal);
+  box-shadow:0 0 0 3px var(--teal-dim);
+}
+.search-box svg{
+  flex-shrink:0;
+  stroke:var(--text-muted);
+  margin-right:10px;
+}
+.search-box input{
+  flex:1;
+  background:transparent;
+  border:none;
+  outline:none;
+  color:var(--text);
+  font-size:15px;
+  font-family:'Inter', sans-serif;
+}
+.search-box input::placeholder{ color:#5c5c5c; }
+
+/* ---------- FILTER BUTTONS ---------- */
+.filter-container {
+  max-width: 640px;
+  margin: 24px 0 10px 34px;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+.filter-container::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  margin-right: 4px;
+}
+
+.filter-btn:hover {
+  color: var(--text);
+  border-color: var(--teal);
+}
+
+.filter-btn.active {
+  background: var(--teal-dim);
+  color: var(--teal);
+  border-color: var(--teal);
+}
+
+/* ---------- SECTION LABEL ---------- */
+.section-label{
+  max-width:640px;
+  margin:20px 0 14px 34px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:14px;
+  color:var(--text-muted);
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+/* ---------- DRAMA / MOVIE LIST ---------- */
+.drama-list{
+  max-width:640px;
+  margin:0 0 0 34px;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  text-align:left;
+}
+
+.drama-card{
+  display:flex;
+  gap:14px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  align-items:center;
+  transition:border-color .2s, transform .2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+.drama-card:hover{
+  border-color:var(--teal);
+  transform:translateY(-2px);
+}
+
+.poster-frame {
+  width: 64px;
+  height: 92px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: linear-gradient(160deg, var(--red-dim), var(--teal-dim));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Anton', sans-serif;
+  font-size: 22px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.drama-card:hover .poster-frame{
+  overflow:visible;
+}
+
+.poster{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  position:relative;
+  z-index:1;
+  transition:transform .3s ease;
+}
+.drama-card:hover .poster{
+  transform:scale(2.5);
+  z-index:10;
+}
+
+.drama-info{ flex:1; min-width:0; text-align:left; }
+
+.drama-title{
+  font-size:16.5px;
+  font-weight:700;
+  margin-bottom:4px;
+}
+
+.tags{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-bottom:6px;
+}
+.tag{
+  font-size:11px;
+  padding:2px 8px;
+  border-radius:20px;
+  font-weight:600;
+  letter-spacing:.3px;
+}
+.tag.genre{
+  background:var(--teal-dim);
+  color:var(--teal);
+}
+.tag.status{
+  background:var(--red-dim);
+  color:var(--red);
+}
+
+.drama-desc{
+  font-size:12.5px;
+  color:var(--text-muted);
+  line-height:1.4;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+/* ---------- DETAIL PANEL ---------- */
+.detail-panel{
+  position:fixed;
+  top:0;
+  right:0;
+  height:100vh;
+  width:380px;
+  max-width:90vw;
+  background:var(--bg-card);
+  border-left:1px solid var(--border);
+  padding:28px 24px;
+  transform:translateX(100%);
+  transition:transform .3s ease;
+  z-index:100;
+  overflow-y:auto;
+}
+.detail-panel.open{
+  transform:translateX(0);
+}
+.detail-close{
+  position:absolute;
+  top:16px;
+  right:16px;
+  background:var(--red-dim);
+  color:var(--red);
+  border:none;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  font-size:16px;
+  cursor:pointer;
+}
+.detail-poster-frame{
+  width:100%;
+  max-width:220px;
+  aspect-ratio:2/3;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:20px;
+}
+.detail-poster-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+#detailTitle{
+  font-size:24px;
+  margin-bottom:10px;
+}
+.detail-tags{
+  display:flex;
+  gap:8px;
+  margin-bottom:14px;
+}
+#detailDesc{
+  color:var(--text-muted);
+  font-size:14px;
+  line-height:1.5;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:400px){
+  .poster-frame{ width:52px; height:74px; }
+  .drama-title{ font-size:15px; }
+  .filter-container, .section-label, .drama-list { margin-left: 15px; }
+}
