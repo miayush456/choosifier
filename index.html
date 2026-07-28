@@ -7,65 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-
-  .detail-panel{
-  position:fixed;
-  top:0;
-  right:0;
-  height:100vh;
-  width:380px;
-  max-width:90vw;
-  background:var(--bg-card);
-  border-left:1px solid var(--border);
-  padding:28px 24px;
-  transform:translateX(100%);
-  transition:transform .3s ease;
-  z-index:100;
-  overflow-y:auto;
-}
-.detail-panel.open{
-  transform:translateX(0);
-}
-.detail-close{
-  position:absolute;
-  top:16px;
-  right:16px;
-  background:var(--red-dim);
-  color:var(--red);
-  border:none;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  font-size:16px;
-  cursor:pointer;
-}
-.detail-poster-frame{
-  width:100%;
-  max-width:220px;
-  aspect-ratio:2/3;
-  border-radius:10px;
-  overflow:hidden;
-  margin-bottom:20px;
-}
-.detail-poster-frame img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-#detailTitle{
-  font-size:24px;
-  margin-bottom:10px;
-}
-.detail-tags{
-  display:flex;
-  gap:8px;
-  margin-bottom:14px;
-}
-#detailDesc{
-  color:var(--text-muted);
-  font-size:14px;
-  line-height:1.5;
-}
   :root{
     --bg:#0a0a0a;
     --bg-card:#131313;
@@ -93,6 +34,14 @@
     padding:36px 20px 24px;
     text-align:left;
     border-bottom:1px solid var(--border);
+  }
+
+  .header-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
   }
 
   .logo{
@@ -130,18 +79,11 @@
   }
 
   /* ---------- SEARCH ---------- */
-  .header-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-}
-.search-wrap{
-  flex:1;
-  min-width:200px;
-  max-width:320px;
-}
+  .search-wrap{
+    flex:1;
+    min-width:200px;
+    max-width:320px;
+  }
   .search-box{
     display:flex;
     align-items:center;
@@ -171,30 +113,68 @@
   }
   .search-box input::placeholder{ color:#5c5c5c; }
 
-  /* ---------- SECTION LABEL ---------- */
-.section-label{
-  max-width:640px;
-  margin:34px 0 14px 34px;
-  padding:0;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:14px;
-  color:var(--text-muted);
-  letter-spacing:1px;
-  text-transform:uppercase;
-}
+  /* ---------- FILTER SLIDER BUTTONS ---------- */
+  .filter-container {
+    max-width: 640px;
+    margin: 24px 0 10px 34px;
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none; /* Firefox */
+  }
+  .filter-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
 
-  /* ---------- DRAMA LIST ---------- */
- .drama-list{
-  max-width:640px;
-  margin:0 0 0 34px;
-  padding:0;
-  display:flex;
-  flex-direction:column;
-  gap:24px;
-  text-align:left;
-}
+  .filter-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    color: var(--text);
+    border-color: var(--teal);
+  }
+
+  .filter-btn.active {
+    background: var(--teal-dim);
+    color: var(--teal);
+    border-color: var(--teal);
+  }
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-label{
+    max-width:640px;
+    margin:20px 0 14px 34px;
+    padding:0;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+    color:var(--text-muted);
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
+
+  /* ---------- DRAMA / MOVIE LIST ---------- */
+  .drama-list{
+    max-width:640px;
+    margin:0 0 0 34px;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    text-align:left;
+  }
 
   .drama-card{
     display:flex;
@@ -205,36 +185,53 @@
     padding:12px;
     align-items:center;
     transition:border-color .2s, transform .2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
   }
   .drama-card:hover{
     border-color:var(--teal);
     transform:translateY(-2px);
   }
 
-  .poster{
-  width:64px;
-  height:92px;
-  flex-shrink:0;
-  border-radius:6px;
-  object-fit:cover;
-  background:linear-gradient(160deg, var(--red-dim), var(--teal-dim));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:'Anton', sans-serif;
-  font-size:22px;
-  color:var(--text-muted);
-  border:1px solid var(--border);
-  overflow:hidden;
-  transition:transform .3s ease;
-  object-fit:cover;
-  object-position:center;
-}
+  .poster-frame {
+    width: 64px;
+    height: 92px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    background: linear-gradient(160deg, var(--red-dim), var(--teal-dim));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Anton', sans-serif;
+    font-size: 22px;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
 
-.drama-card:hover img.poster{
-  transform:scale(2.2);
-  transform-origin:center;
-}
+  .poster{
+    width:64px;
+    height:92px;
+    flex-shrink:0;
+    border-radius:6px;
+    object-fit:cover;
+    background:linear-gradient(160deg, var(--red-dim), var(--teal-dim));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Anton', sans-serif;
+    font-size:22px;
+    color:var(--text-muted);
+    border:1px solid var(--border);
+    overflow:hidden;
+    transition:transform .3s ease;
+    object-position:center;
+  }
+
+  .drama-card:hover img.poster{
+    transform:scale(1.1);
+  }
 
   .drama-info{ flex:1; min-width:0; text-align:left; }
 
@@ -276,10 +273,71 @@
     overflow:hidden;
   }
 
+  /* ---------- DETAIL PANEL ---------- */
+  .detail-panel{
+    position:fixed;
+    top:0;
+    right:0;
+    height:100vh;
+    width:380px;
+    max-width:90vw;
+    background:var(--bg-card);
+    border-left:1px solid var(--border);
+    padding:28px 24px;
+    transform:translateX(100%);
+    transition:transform .3s ease;
+    z-index:100;
+    overflow-y:auto;
+  }
+  .detail-panel.open{
+    transform:translateX(0);
+  }
+  .detail-close{
+    position:absolute;
+    top:16px;
+    right:16px;
+    background:var(--red-dim);
+    color:var(--red);
+    border:none;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    font-size:16px;
+    cursor:pointer;
+  }
+  .detail-poster-frame{
+    width:100%;
+    max-width:220px;
+    aspect-ratio:2/3;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:20px;
+  }
+  .detail-poster-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  #detailTitle{
+    font-size:24px;
+    margin-bottom:10px;
+  }
+  .detail-tags{
+    display:flex;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  #detailDesc{
+    color:var(--text-muted);
+    font-size:14px;
+    line-height:1.5;
+  }
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:400px){
-    .poster{ width:52px; height:74px; }
+    .poster, .poster-frame{ width:52px; height:74px; }
     .drama-title{ font-size:15px; }
+    .filter-container, .section-label, .drama-list { margin-left: 15px; }
   }
 </style>
 </head>
@@ -306,255 +364,318 @@
     </div>
   </header>
 
-  <div class="section-label">K-Drama Picks</div>
+  <div class="filter-container">
+    <button class="filter-btn active" onclick="filterCategory('all', this)">All</button>
+    <button class="filter-btn" onclick="filterCategory('korean', this)">K-Drama Picks</button>
+    <button class="filter-btn" onclick="filterCategory('movie', this)">Movies</button>
+  </div>
 
-  <div class="drama-list">
+  <div class="section-label" id="sectionHeading">All Recommendation</div>
 
-   <div class="drama-card"
-     data-title="Vincenzo"
-     data-genre="Crime"
-     data-status="Completed"
-     data-img="webseries/korean/images/vincenzo.jpeg"
-     data-desc="Ek Korean-Italian mafia consultant apne dushmano se hisaab barabar karne ke liye Korea aata hai — dark humor aur revenge ka perfect mix.">
-  <img class="poster" src="webseries/korean/images/vincenzo.jpeg" alt="Vincenzo poster">
-  <div class="drama-info">
-    <div class="drama-title">Vincenzo</div>
-    <div class="tags">
-      <span class="tag genre">Crime</span>
-      <span class="tag status">Completed</span>
+  <div class="drama-list" id="mainDisplayList">
     </div>
-    <div class="drama-desc">Ek Korean-Italian mafia consultant apne dushmano se hisaab barabar karne ke liye Korea aata hai — dark humor aur revenge ka perfect mix.</div>
-  </div>
-</div>
-  <div class="drama-card"
-     data-title="Queen of Tears"
-     data-genre="Romance"
-     data-status="Completed"
-     data-img="webseries/korean/images/queen of tears.jpeg"
-     data-desc="Ek business heiress aur uske husband ki shaadi tab test hoti hai jab ek zindagi badalne wali khabar unke rishte ko phir se jodti hai.">
-  <img class="poster" src="webseries/korean/images/queen of tears.jpeg" alt="Queen of Tears poster">
-  <div class="drama-info">
-    <div class="drama-title">Queen of Tears</div>
-    <div class="tags">
-      <span class="tag genre">Romance</span>
-      <span class="tag status">Completed</span>
-    </div>
-    <div class="drama-desc">Ek business heiress aur uske husband ki shaadi tab test hoti hai jab ek zindagi badalne wali khabar unke rishte ko phir se jodti hai.</div>
-  </div>
-</div>
 
-<a href="webseries/korean/crash landing on you.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>C</span>
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">Crash Landing on You</div>
-    <div class="tags">
-      <span class="tag genre">Romance</span>
-      <span class="tag status">Completed</span>
+  <div id="korean-container" style="display: none;">
+    <div class="drama-card"
+       data-title="Vincenzo"
+       data-genre="Crime"
+       data-status="Completed"
+       data-img="webseries/korean/images/vincenzo.jpeg"
+       data-desc="Ek Korean-Italian mafia consultant apne dushmano se hisaab barabar karne ke liye Korea aata hai — dark humor aur revenge ka perfect mix.">
+      <img class="poster" src="webseries/korean/images/vincenzo.jpeg" alt="Vincenzo poster">
+      <div class="drama-info">
+        <div class="drama-title">Vincenzo</div>
+        <div class="tags">
+          <span class="tag genre">Crime</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">Ek Korean-Italian mafia consultant apne dushmano se hisaab barabar karne ke liye Korea aata hai — dark humor aur revenge ka perfect mix.</div>
+      </div>
     </div>
-    <div class="drama-desc">Ek South Korean heiress paragliding accident ke baad North Korea mein land karti hai aur ek army officer se unexpected connection ban jata hai.</div>
-  </div>
-</a>
 
-<a href="webseries/korean/all of us are dead.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>A</span>
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">All of Us Are Dead</div>
-    <div class="tags">
-      <span class="tag genre">Zombie</span>
-      <span class="tag status">Completed</span>
+    <div class="drama-card"
+       data-title="Queen of Tears"
+       data-genre="Romance"
+       data-status="Completed"
+       data-img="webseries/korean/images/queen of tears.jpeg"
+       data-desc="Ek business heiress aur uske husband ki shaadi tab test hoti hai jab ek zindagi badalne wali khabar unke rishte ko phir se jodti hai.">
+      <img class="poster" src="webseries/korean/images/queen of tears.jpeg" alt="Queen of Tears poster">
+      <div class="drama-info">
+        <div class="drama-title">Queen of Tears</div>
+        <div class="tags">
+          <span class="tag genre">Romance</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">Ek business heiress aur uske husband ki shaadi tab test hoti hai jab ek zindagi badalne wali khabar unke rishte ko phir se jodti hai.</div>
+      </div>
     </div>
-    <div class="drama-desc">Ek high school mein zombie outbreak phailta hai aur students ko survive karne ke liye ek dusre pe depend karna padta hai.</div>
-  </div>
-</a>
 
-<a href="webseries/korean/reeborn rookie.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>R</span>
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">Reborn Rookie</div>
-    <div class="tags">
-      <span class="tag genre">Drama</span>
-      <span class="tag status">Ongoing</span>
-    </div>
-    <div class="drama-desc">Details yahan add karo.</div>
-  </div>
-</a>
+    <a href="webseries/korean/crash landing on you.html" class="drama-card">
+      <div class="poster-frame"><span>C</span></div>
+      <div class="drama-info">
+        <div class="drama-title">Crash Landing on You</div>
+        <div class="tags">
+          <span class="tag genre">Romance</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">Ek South Korean heiress paragliding accident ke baad North Korea mein land karti hai aur ek army officer se unexpected connection ban jata hai.</div>
+      </div>
+    </a>
 
-<div class="drama-card"
-     data-title="Business Proposal"
-     data-genre="Rom-Com"
-     data-status="Completed"
-     data-img="webseries/korean/images/business proposal.jpeg"
-     data-desc="Ek ladki apni dost ki jagah blind date pe jaati hai aur pata chalta hai ki wo aadmi uska hi CEO hai — fake dating se real romance tak ka safar.">
-  <div class="poster-frame">
-    <img class="poster" src="webseries/korean/images/business proposal.jpeg" alt="Business Proposal poster">
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">Business Proposal</div>
-    <div class="tags">
-      <span class="tag genre">Rom-Com</span>
-      <span class="tag status">Completed</span>
-    </div>
-    <div class="drama-desc">Ek ladki apni dost ki jagah blind date pe jaati hai aur pata chalta hai ki wo aadmi uska hi CEO hai — fake dating se real romance tak ka safar.</div>
-  </div>
-</div>
+    <a href="webseries/korean/all of us are dead.html" class="drama-card">
+      <div class="poster-frame"><span>A</span></div>
+      <div class="drama-info">
+        <div class="drama-title">All of Us Are Dead</div>
+        <div class="tags">
+          <span class="tag genre">Zombie</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">Ek high school mein zombie outbreak phailta hai aur students ko survive karne ke liye ek dusre pe depend karna padta hai.</div>
+      </div>
+    </a>
 
-<a href="webseries/korean/agent kim reactivated.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>A</span>
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">Agent Kim Reactivated</div>
-    <div class="tags">
-      <span class="tag genre">Action</span>
-      <span class="tag status">Ongoing</span>
-    </div>
-    <div class="drama-desc">Details yahan add karo.</div>
-  </div>
-</a>
-<a href="webseries/korean/true beauty.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>T</span>
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">True Beauty</div>
-    <div class="tags">
-      <span class="tag genre">Rom-Com</span>
-      <span class="tag status">Completed</span>
-    </div>
-    <div class="drama-desc">Ek ladki makeup ke through apni asli shakal chupati hai, lekin school mein do ladke uska sach jaan jaate hain.</div>
-  </div>
-</a>
+    <a href="webseries/korean/reeborn rookie.html" class="drama-card">
+      <div class="poster-frame"><span>R</span></div>
+      <div class="drama-info">
+        <div class="drama-title">Reborn Rookie</div>
+        <div class="tags">
+          <span class="tag genre">Drama</span>
+          <span class="tag status">Ongoing</span>
+        </div>
+        <div class="drama-desc">Details yahan add karo.</div>
+      </div>
+    </a>
 
-<a href="webseries/korean/lovely runner.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>L</span>
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">Lovely Runner</div>
-    <div class="tags">
-      <span class="tag genre">Time Travel</span>
-      <span class="tag status">Completed</span>
+    <div class="drama-card"
+       data-title="Business Proposal"
+       data-genre="Rom-Com"
+       data-status="Completed"
+       data-img="webseries/korean/images/business proposal.jpeg"
+       data-desc="Ek ladki apni dost ki jagah blind date pe jaati hai aur pata chalta hai ki wo aadmi uska hi CEO hai — fake dating se real romance tak ka safar.">
+      <div class="poster-frame">
+        <img class="poster" src="webseries/korean/images/business proposal.jpeg" alt="Business Proposal poster">
+      </div>
+      <div class="drama-info">
+        <div class="drama-title">Business Proposal</div>
+        <div class="tags">
+          <span class="tag genre">Rom-Com</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">Ek ladki apni dost ki jagah blind date pe jaati hai aur pata chalta hai ki wo aadmi uska hi CEO hai — fake dating se real romance tak ka safar.</div>
+      </div>
     </div>
-    <div class="drama-desc">Apne pasandida idol ki death ke baad, ek fan achanak past mein chali jaati hai aur uski taqdeer badalne ki koshish karti hai.</div>
-  </div>
-</a>
 
-<a href="webseries/korean/goblin.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>G</span>
+    <a href="webseries/korean/agent kim reactivated.html" class="drama-card">
+      <div class="poster-frame"><span>A</span></div>
+      <div class="drama-info">
+        <div class="drama-title">Agent Kim Reactivated</div>
+        <div class="tags">
+          <span class="tag genre">Action</span>
+          <span class="tag status">Ongoing</span>
+        </div>
+        <div class="drama-desc">Details yahan add karo.</div>
+      </div>
+    </a>
+
+    <a href="webseries/korean/true beauty.html" class="drama-card">
+      <div class="poster-frame"><span>T</span></div>
+      <div class="drama-info">
+        <div class="drama-title">True Beauty</div>
+        <div class="tags">
+          <span class="tag genre">Rom-Com</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">Ek ladki makeup ke through apni asli shakal chupati hai, lekin school mein do ladke uska sach jaan jaate hain.</div>
+      </div>
+    </a>
+
+    <a href="webseries/korean/lovely runner.html" class="drama-card">
+      <div class="poster-frame"><span>L</span></div>
+      <div class="drama-info">
+        <div class="drama-title">Lovely Runner</div>
+        <div class="tags">
+          <span class="tag genre">Time Travel</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">Apne pasandida idol ki death ke baad, ek fan achanak past mein chali jaati hai aur uski taqdeer badalne ki koshish karti hai.</div>
+      </div>
+    </a>
+
+    <a href="webseries/korean/goblin.html" class="drama-card">
+      <div class="poster-frame"><span>G</span></div>
+      <div class="drama-info">
+        <div class="drama-title">Goblin</div>
+        <div class="tags">
+          <span class="tag genre">Fantasy</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">Ek immortal goblin apni curse khatam karne ke liye apni "bride" dhundh raha hai, jiski wajah se uski zindagi mein pyaar aur death ka safar shuru hota hai.</div>
+      </div>
+    </a>
+
+    <a href="webseries/korean/twenty five twenty one.html" class="drama-card">
+      <div class="poster-frame"><span>2</span></div>
+      <div class="drama-info">
+        <div class="drama-title">Twenty Five Twenty One</div>
+        <div class="tags">
+          <span class="tag genre">Coming-of-Age</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">1998 ke financial crisis ke daur mein ek fencing champion banne ki chah rakhne wali ladki aur ek ladke ki dosti aur pyaar ki kahani.</div>
+      </div>
+    </a>
+
+    <a href="webseries/korean/school 2017.html" class="drama-card">
+      <div class="poster-frame"><span>S</span></div>
+      <div class="drama-info">
+        <div class="drama-title">School 2017</div>
+        <div class="tags">
+          <span class="tag genre">Teen Drama</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">High school students ki dosti, pyaar aur unke sapno ke beech ki jung dikhata hai ye slice-of-life drama.</div>
+      </div>
+    </a>
+
+    <a href="webseries/korean/my demon.html" class="drama-card">
+      <div class="poster-frame"><span>M</span></div>
+      <div class="drama-info">
+        <div class="drama-title">My Demon</div>
+        <div class="tags">
+          <span class="tag genre">Fantasy Rom-Com</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">Apni powers khone wale ek demon ko apni taaqat wapas paane ke liye ek cold-hearted heiress se contract karna padta hai.</div>
+      </div>
+    </a>
+
+    <a href="webseries/korean/the glory.html" class="drama-card">
+      <div class="poster-frame"><span>T</span></div>
+      <div class="drama-info">
+        <div class="drama-title">The Glory</div>
+        <div class="tags">
+          <span class="tag genre">Revenge</span>
+          <span class="tag status">Completed</span>
+        </div>
+        <div class="drama-desc">School bullying ki shikaar hui ek ladki saalon baad apne bullies se badla lene ki planning karti hai.</div>
+      </div>
+    </a>
+
+    <a href="webseries/korean/good boy.html" class="drama-card">
+      <div class="poster-frame"><span>G</span></div>
+      <div class="drama-info">
+        <div class="drama-title">Good Boy</div>
+        <div class="tags">
+          <span class="tag genre">Action Drama</span>
+          <span class="tag status">Ongoing</span>
+        </div>
+        <div class="drama-desc">Details yahan add karo.</div>
+      </div>
+    </a>
   </div>
-  <div class="drama-info">
-    <div class="drama-title">Goblin</div>
-    <div class="tags">
-      <span class="tag genre">Fantasy</span>
-      <span class="tag status">Completed</span>
+
+  <div id="movie-container" style="display: none;">
+    <div class="drama-card"
+       data-title="Inception"
+       data-genre="Sci-Fi"
+       data-status="Movie"
+       data-img="movies/images/inception.jpeg"
+       data-desc="Ek chor jo logon ke sapno me jaakar unke raaz churata hai, use ek aakhri kaam milta hai — kisi ke dimaag me naya idea daalna.">
+      <div class="poster-frame"><span>I</span></div>
+      <div class="drama-info">
+        <div class="drama-title">Inception</div>
+        <div class="tags">
+          <span class="tag genre">Sci-Fi</span>
+          <span class="tag status">Movie</span>
+        </div>
+        <div class="drama-desc">Ek chor jo logon ke sapno me jaakar unke raaz churata hai, use ek aakhri kaam milta hai — kisi ke dimaag me naya idea daalna.</div>
+      </div>
     </div>
-    <div class="drama-desc">Ek immortal goblin apni curse khatam karne ke liye apni "bride" dhundh raha hai, jiski wajah se uski zindagi mein pyaar aur death ka safar shuru hota hai.</div>
   </div>
-</a>
 
-<a href="webseries/korean/twenty five twenty one.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>2</span>
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">Twenty Five Twenty One</div>
-    <div class="tags">
-      <span class="tag genre">Coming-of-Age</span>
-      <span class="tag status">Completed</span>
+  <div class="detail-panel" id="detailPanel">
+    <button class="detail-close" onclick="closeDetail()">✕</button>
+    <div class="detail-poster-frame">
+      <img id="detailImg" src="" alt="">
     </div>
-    <div class="drama-desc">1998 ke financial crisis ke daur mein ek fencing champion banne ki chah rakhne wali ladki aur ek ladke ki dosti aur pyaar ki kahani.</div>
+    <h2 id="detailTitle"></h2>
+    <div class="detail-tags" id="detailTags"></div>
+    <p id="detailDesc"></p>
   </div>
-</a>
-
-<a href="webseries/korean/school 2017.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>S</span>
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">School 2017</div>
-    <div class="tags">
-      <span class="tag genre">Teen Drama</span>
-      <span class="tag status">Completed</span>
-    </div>
-    <div class="drama-desc">High school students ki dosti, pyaar aur unke sapno ke beech ki jung dikhata hai ye slice-of-life drama.</div>
-  </div>
-</a>
-
-<a href="webseries/korean/my demon.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>M</span>
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">My Demon</div>
-    <div class="tags">
-      <span class="tag genre">Fantasy Rom-Com</span>
-      <span class="tag status">Completed</span>
-    </div>
-    <div class="drama-desc">Apni powers khone wale ek demon ko apni taaqat wapas paane ke liye ek cold-hearted heiress se contract karna padta hai.</div>
-  </div>
-</a>
-
-<a href="webseries/korean/the glory.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>T</span>
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">The Glory</div>
-    <div class="tags">
-      <span class="tag genre">Revenge</span>
-      <span class="tag status">Completed</span>
-    </div>
-    <div class="drama-desc">School bullying ki shikaar hui ek ladki saalon baad apne bullies se badla lene ki planning karti hai.</div>
-  </div>
-</a>
-
-<a href="webseries/korean/good boy.html" class="drama-card" style="text-decoration:none; color:inherit;">
-  <div class="poster-frame">
-    <span>G</span>
-  </div>
-  <div class="drama-info">
-    <div class="drama-title">Good Boy</div>
-    <div class="tags">
-      <span class="tag genre">Action Drama</span>
-      <span class="tag status">Ongoing</span>
-    </div>
-    <div class="drama-desc">Details yahan add karo.</div>
-  </div>
-</a>
-
-<div class="detail-panel" id="detailPanel">
-  <button class="detail-close" onclick="closeDetail()">✕</button>
-  <div class="detail-poster-frame">
-    <img id="detailImg" src="" alt="">
-  </div>
-  <h2 id="detailTitle"></h2>
-  <div class="detail-tags" id="detailTags"></div>
-  <p id="detailDesc"></p>
-</div>
 
 <script>
-  document.querySelectorAll('.drama-card').forEach(card => {
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', () => {
-      document.getElementById('detailImg').src = card.dataset.img;
-      document.getElementById('detailTitle').textContent = card.dataset.title;
-      document.getElementById('detailDesc').textContent = card.dataset.desc;
-      document.getElementById('detailTags').innerHTML =
-        '<span class="tag genre">' + card.dataset.genre + '</span><span class="tag status">' + card.dataset.status + '</span>';
-      document.getElementById('detailPanel').classList.add('open');
+  const mainDisplay = document.getElementById('mainDisplayList');
+  const sectionHeading = document.getElementById('sectionHeading');
+
+  // Random Shuffle Function (Fisher-Yates Algorithm)
+  function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
+
+  // Bind Popup click events on modal-supported cards
+  function attachCardListeners() {
+    document.querySelectorAll('#mainDisplayList .drama-card').forEach(card => {
+      if (card.dataset.title) {
+        card.addEventListener('click', (e) => {
+          e.preventDefault(); // Default link navigation ko roko
+          document.getElementById('detailImg').src = card.dataset.img || '';
+          document.getElementById('detailTitle').textContent = card.dataset.title;
+          document.getElementById('detailDesc').textContent = card.dataset.desc;
+          document.getElementById('detailTags').innerHTML =
+            '<span class="tag genre">' + card.dataset.genre + '</span><span class="tag status">' + card.dataset.status + '</span>';
+          document.getElementById('detailPanel').classList.add('open');
+        });
+      }
     });
-  });
+  }
 
   function closeDetail(){
     document.getElementById('detailPanel').classList.remove('open');
   }
+
+  // Filter Categories Strategy
+  function filterCategory(type, btnElement) {
+    // 1. Active class button switch
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    btnElement.classList.add('active');
+
+    mainDisplay.innerHTML = ''; // Clear current display
+
+    let itemsToDisplay = [];
+
+    const koreanCards = Array.from(document.querySelectorAll('#korean-container .drama-card'));
+    const movieCards = Array.from(document.querySelectorAll('#movie-container .drama-card'));
+
+    if (type === 'korean') {
+      sectionHeading.textContent = 'K-Drama Picks';
+      itemsToDisplay = koreanCards;
+    } else if (type === 'movie') {
+      sectionHeading.textContent = 'Movies';
+      itemsToDisplay = movieCards;
+    } else {
+      sectionHeading.textContent = 'All Recommendation';
+      // Merge dono containers and shuffle randomly
+      itemsToDisplay = shuffle([...koreanCards, ...movieCards]);
+    }
+
+    // Display container items render karein
+    itemsToDisplay.forEach(card => {
+      mainDisplay.appendChild(card.cloneNode(true));
+    });
+
+    attachCardListeners();
+  }
+
+  // Initial setup load
+  window.addEventListener('DOMContentLoaded', () => {
+    filterCategory('all', document.querySelector('.filter-btn.active'));
+  });
 </script>
 </body>
 </html>
