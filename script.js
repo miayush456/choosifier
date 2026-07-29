@@ -27,6 +27,15 @@ function attachCardListeners() {
         '<span class="tag status">' + (card.dataset.status || '') + '</span>';
       document.getElementById('detailPanel').classList.add('open');
     });
+
+    const plusBtn = document.createElement('a');
+    plusBtn.href = 'https://t.me/+eQ_pVh9YhS8yZWI9';
+    plusBtn.target = '_blank';
+    plusBtn.rel = 'noopener noreferrer';
+    plusBtn.className = 'card-plus-btn';
+    plusBtn.textContent = '+';
+    plusBtn.addEventListener('click', (e) => e.stopPropagation());
+    card.appendChild(plusBtn);
   });
 }
  
